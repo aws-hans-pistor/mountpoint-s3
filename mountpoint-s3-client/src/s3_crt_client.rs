@@ -608,7 +608,7 @@ impl S3CrtClientInner {
                 }
 
                 if let Some(telemetry_callback) = &telemetry_callback {
-                    telemetry_callback.on_telemetry(metrics, &span_telemetry);
+                    telemetry_callback.on_telemetry(metrics, op);
                 }
             })
             .on_headers(move |headers, response_status| {
@@ -1359,7 +1359,7 @@ impl ObjectClient for S3CrtClient {
 }
 
 pub trait OnTelemetry: std::fmt::Debug + Send + Sync {
-    fn on_telemetry(&self, request_metrics: &RequestMetrics, span: &Span);
+    fn on_telemetry(&self, request_metrics: &RequestMetrics, operation: &str);
 }
 
 #[cfg(test)]

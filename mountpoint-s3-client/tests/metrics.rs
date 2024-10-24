@@ -306,7 +306,7 @@ async fn test_custom_telemetry_callback() {
     }
 
     impl OnTelemetry for CustomOnTelemetry {
-        fn on_telemetry(&self, _request_metrics: &RequestMetrics, _span: &tracing::Span) {
+        fn on_telemetry(&self, _request_metrics: &RequestMetrics, _operation: &str) {
             metrics::counter!(self.metric_name.clone()).absolute(self.metric_value);
         }
     }
